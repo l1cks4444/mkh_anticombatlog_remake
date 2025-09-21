@@ -2,7 +2,7 @@ ESX = exports['es_extended']:getSharedObject()
 
 
 local Config = {
-    Webhook = "https://discord.com/api/webhooks/1342195138843115562/njIGLjw2_SpSF3u_tidFokWyAxGN2Cxwfem2j8U_zs4EkA4T17RHw7mfuPxRrCXASlqD",
+    Webhook = "webhook hier",
     Discord = {
         username = "Anti-Combatlog",
         color = 16711680,
@@ -32,7 +32,6 @@ AddEventHandler('playerDropped', function(reason)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
     local coords = GetEntityCoords(GetPlayerPed(src))
-    -- Skin holen
     TriggerEvent('esx_skin:getPlayerSkin', src, function(skin)
         disconnects[src] = {
             name = xPlayer.getName(),
@@ -55,14 +54,14 @@ RegisterNetEvent('mkh_anticombatlog:reportPlayer', function(target, reportReason
     print("mkh_anticombatlog:reportPlayer")
     local reporter = source
     local xReporter = ESX.GetPlayerFromId(reporter)
-    print("DEBUG: reporter:", reporter)
-    print("DEBUG: xReporter:", xReporter)
-    print("DEBUG: disconnects[target]:", disconnects[target])
+    print("reporter:", reporter)
+    print("xReporter:", xReporter)
+    print("disconnects[target]:", disconnects[target])
     if not xReporter or not disconnects[target] then 
         print("DEBUG: Aborted: xReporter or disconnects[target] missing")
         return 
     end
-    print("DEBUG: reported")
+    print("reported")
     disconnects[target].reported = true
     disconnects[target].reportReason = reportReason
     local webhookMsg = ("**Combatlogger:** %s (%s)\n**Reporter:** %s (%s)\n**Grund:** %s\n**Disconnect Reason:** %s")
