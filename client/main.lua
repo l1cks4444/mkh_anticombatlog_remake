@@ -7,7 +7,6 @@ Citizen.CreateThread(function()
         ESX = exports['es_extended']:getSharedObject()
         Citizen.Wait(0)
     end
-    print('DEBUG: ESX initialisiert:', ESX ~= nil)
 end)
 
 
@@ -43,7 +42,7 @@ RegisterNetEvent('mkh_anticombatlog:spawnDummy', function(src, coords, name, rea
     SetBlockingOfNonTemporaryEvents(ped, true)
     dummies[src] = {ped = ped, name = name, coords = coords}
     dummyReasons[src] = reason or 'Noch nicht gemeldet'
-    Citizen.SetTimeout(15000, function() -- timeout
+    Citizen.SetTimeout(15000, function()
         if dummies[src] and dummies[src].ped then DeleteEntity(dummies[src].ped) end
         dummies[src] = nil
         dummyReasons[src] = nil
@@ -81,7 +80,7 @@ Citizen.CreateThread(function()
             if dist < 3.0 then
                 local reason = dummyReasons[src] or 'Noch nicht gemeldet'
                 DrawText3D(data.coords.x, data.coords.y, data.coords.z + 1.0, "Spieler hat Server verlassen\nPress [E] to Report\nID: "..src.." ("..data.name..")\nReason: "..reason)
-                if IsControlJustReleased(0, 38) then -- E
+                if IsControlJustReleased(0, 38) then
                     print('DEBUG: E pressed, opening ESX dialog for src:', src)
                     if ESX and ESX.UI and ESX.UI.Menu then
                         ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'report_reason', {
